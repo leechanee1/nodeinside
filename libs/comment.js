@@ -11,7 +11,6 @@ let read = (gall_id, article_no, page = 1) => {
 
         protocol.get(protocol.API.comment.read, body).then(data => {
             if (!(data instanceof Array)) reject(data);
-            if (data[0].hasOwnProperty('result') && JSON.parse(data[0].result.toString().toLowerCase()) === false) reject(data[0]);
             resolve(data[0]);
         }, err => {
             reject(err);
@@ -26,7 +25,7 @@ let write = (session, gall_id, article_no, memo, detail_idx) => {
             id: gall_id,
             no: article_no,
             comment_memo: memo,
-            detail_idx
+            detail_idx: detail_idx || ''
         };
 
         if (session.type === 'login') {

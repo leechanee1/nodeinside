@@ -15,5 +15,9 @@
   "license": "MIT",
   "dependencies": {
     "request": "^2.79.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/leechanee1/nodeinside.git"
   }
 }
