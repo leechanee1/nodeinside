@@ -28,7 +28,7 @@ let post = (api, body) => {
 	return new Promise((resolve, reject) => {
 		request.post(option, (err, res, body) => {
 			if (err) reject(err);
-			resolve(body instanceof Array && body[0] || body, res);
+			resolve(body, res);
 		});
 	});
 };
@@ -44,7 +44,7 @@ let get = (api, body) => {
 	return new Promise((resolve, reject) => {
 		request.get(option, (err, res, body) => {
 			if (err) reject(err);
-			resolve(body instanceof Array && body[0] || body, res);
+			resolve(body, res);
 		});
 	});
 };

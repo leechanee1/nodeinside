@@ -8,7 +8,8 @@ let login = (user_id, user_pw) => {
 		};
 
 		protocol.post(protocol.API.login, body).then(data => {
-			resolve(data);
+			if (!(data instanceof Array)) reject(data);
+			resolve(data[0]);
 		}, err => {
 			reject(err);
 		});
