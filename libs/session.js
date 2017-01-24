@@ -8,9 +8,9 @@ let login = (user_id, user_pw) => {
 		};
 
 		protocol.post(protocol.API.login, body).then(data => {
-			console.log(data);
+			resolve(data);
 		}, err => {
-			console.error(err);
+			reject(err);
 		});
 	})
 };
