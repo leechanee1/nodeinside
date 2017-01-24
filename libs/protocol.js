@@ -4,7 +4,7 @@ let request  = require('request');
 let qs       = require('querystring').stringify;
 let toBase64 = str => new Buffer(str).toString('base64');
 let toOption = obj => Object.assign(obj, {
-	HEADER,
+	headers,
 	json: true,
 	gzip: true
 });
@@ -20,17 +20,15 @@ const headers = {
 
 let post = (api, body) => {
 	body.app_id = APP_ID;
-	// let params = `${api}?${qs(body)}`;
-	// let url = `${API.redirect}?hash=${toBase64(params)}`;
 	let option = toOption({
-		url,
+		url: api,
 		headers,
 		formData: body
 	});
 	return new Promise((resolve, reject) => {
 		request.post(option, (err, res, body) => {
 			if (err) reject(err);
-			resolve(body, res);
+			resolve(body instanceof Array && body[0] || body, res);
 		});
 	});
 };
@@ -46,7 +44,7 @@ let get = (api, body) => {
 	return new Promise((resolve, reject) => {
 		request.get(option, (err, res, body) => {
 			if (err) reject(err);
-			resolve(body, res);
+			resolve(body instanceof Array && body[0] || body, res);
 		});
 	});
 };
