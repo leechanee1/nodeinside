@@ -18,7 +18,7 @@ const headers = {
 	'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
 };
 
-let post(api, body) => {
+let post = (api, body) => {
 	body.app_id = APP_ID;
 	// let params = `${api}?${qs(body)}`;
 	// let url = `${API.redirect}?hash=${toBase64(params)}`;
@@ -35,7 +35,7 @@ let post(api, body) => {
 	});
 };
 
-let get(api, body) => {
+let get = (api, body) => {
 	body.app_id = APP_ID;
 	let params = `${api}?${qs(body)}`;
 	let url = `${API.redirect}?hash=${toBase64(params)}`;
