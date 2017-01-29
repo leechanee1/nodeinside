@@ -9,7 +9,7 @@ let toOption = obj => Object.assign(obj, {
 	gzip: true
 });
 
-const APP_ID = 'dFdyNnU3V0pGL0UxUElnZlozTnZvUEJIMWZXREVGNEREWG44QzVQRGZxdz0=';
+let APP_ID = '';
 const API    = require('./api-protocol');
 const headers = {
 	'User-Agent': "dcinside.app",
@@ -18,8 +18,12 @@ const headers = {
 	'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
 };
 
+let setAppID = app_id => APP_ID = app_id;
+
 let post = (api, body) => {
-	body.app_id = APP_ID;
+	console.log(APP_ID);
+	if (!APP_ID && api !== API.app_id) throw 'app_id is missing. run nodeinside() first.';
+	if (api !== API.app_id) body.app_id = APP_ID;
 	let option = toOption({
 		url: api,
 		headers,
@@ -28,12 +32,13 @@ let post = (api, body) => {
 	return new Promise((resolve, reject) => {
 		request.post(option, (err, res, body) => {
 			if (err) reject(err);
-			resolve(body, res);
+			resolve(body);
 		});
 	});
 };
 
 let get = (api, body) => {
+	if (!APP_ID) throw 'app_id is missing. run nodeinside() first.';
 	body.app_id = APP_ID;
 	let params = `${api}?${qs(body)}`;
 	let url = `${API.redirect}?hash=${toBase64(params)}`;
@@ -44,7 +49,7 @@ let get = (api, body) => {
 	return new Promise((resolve, reject) => {
 		request.get(option, (err, res, body) => {
 			if (err) reject(err);
-			resolve(body, res);
+			resolve(body);
 		});
 	});
 };
@@ -53,5 +58,6 @@ module.exports = {
 	post,
 	get,
 	APP_ID,
-	API
+	API,
+	setAppID
 };

@@ -16,5 +16,6 @@ module.exports = {
         dccon: 'http://m.dcinside.com/api/dccon.php',
         voice: 'http://upload.dcinside.com/_app_upload.php'
     },
-    redirect: 'http://m.dcinside.com/api/redirect.php'
+    redirect: 'http://m.dcinside.com/api/redirect.php',
+    app_id: 'http://dcid.dcinside.com/join/mobile_app_issue_certification.php'
 }
