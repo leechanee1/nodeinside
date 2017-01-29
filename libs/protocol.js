@@ -21,7 +21,6 @@ const headers = {
 let setAppID = app_id => APP_ID = app_id;
 
 let post = (api, body) => {
-	console.log(APP_ID);
 	if (!APP_ID && api !== API.app_id) throw 'app_id is missing. run nodeinside() first.';
 	if (api !== API.app_id) body.app_id = APP_ID;
 	let option = toOption({
