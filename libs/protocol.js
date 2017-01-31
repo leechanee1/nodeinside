@@ -31,6 +31,11 @@ let post = (api, body) => {
 	return new Promise((resolve, reject) => {
 		request.post(option, (err, res, body) => {
 			if (err) reject(err);
+			if (typeof body === 'string') {
+				body = body.replace(/\s{1,}/g, ' ');
+				body = body.replace(/\r\n/g, ' ');
+				body = JSON.parse(body);
+			}
 			resolve(body);
 		});
 	});
