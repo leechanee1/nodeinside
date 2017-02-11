@@ -8,7 +8,13 @@ let read = (gall_id, page = 1) => {
 		};
 
 		protocol.get(protocol.API.gallery.read, body).then(data => {
-			if (!(data instanceof Array)) reject(data);
+			if (!(data instanceof Array)) {
+				if (typeof data === 'string') {
+					data = JSON.parse(data.replace(/\n/g, '').replace(/\s{2,}/g, ' '));
+				} else {
+					reject(data);
+				}
+			}
 			if (data[0].hasOwnProperty('result') && JSON.parse(data[0].result.toString().toLowerCase()) === false) reject(data[0]);
 			resolve(data[0]);
 		}, err => {
